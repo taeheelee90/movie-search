@@ -22,16 +22,20 @@ public class MovieController {
 	}
 
 	@GetMapping("/rest-movies")
-	public @ResponseBody MovieDTO getMovie(@RequestParam String keyword) {
-		return movieService.findByKeyword(keyword);
+	public @ResponseBody MovieDTO getMovie(@RequestParam String title) {
+		return movieService.searchMovie(title);
 	}
 
 	@GetMapping("/movies")
-	public String showMovies(@RequestParam String keyword, Model model) {
-		MovieDTO movieDTO = movieService.findByKeyword(keyword);
-		List<Movie> movies = movieService.renderMovieDTO(movieDTO);
+	public String showMovies(@RequestParam String title, Model model) {
+		
+		/*Currently render method returns all movies from Repo,
+		ToDo: Return movies with title only!
+		*/
+		MovieDTO movieDTO = movieService.searchMovie(title);
+		List<Movie> movies = movieService.renderMovieDTO(movieDTO, title);
 
-		model.addAttribute("keyword", keyword);
+		model.addAttribute("title", title);
 		model.addAttribute("movies", movies);
 		
 		return "movies";

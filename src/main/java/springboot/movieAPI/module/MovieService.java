@@ -17,20 +17,20 @@ public class MovieService {
 	private final ModelMapper modelMapper;
 	private final MovieRepository movieRepository;
 
-	@Transactional(readOnly = true)
-	public MovieDTO findByKeyword(String keyword) {
-		return movieApiClient.requestMovie(keyword);
+	public MovieDTO searchMovie(String title) {
+		return movieApiClient.requestMovie(title);
 	}
 
-	public List<Movie> renderMovieDTO(MovieDTO movieDTO) {
+	@Transactional
+	public List<Movie> renderMovieDTO(MovieDTO movieDTO, String title) {
 		Item[] items = movieDTO.getItems();
 
 		for (Item item : items) {
 			Movie movie = modelMapper.map(item, Movie.class);
 			movieRepository.save(movie);
 		}
+		System.out.println(movieRepository.findAll());
 		return movieRepository.findAll();
-
 	}
 
 }

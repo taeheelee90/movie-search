@@ -19,16 +19,16 @@ public class MovieApiClient {
 	private final String CLIENT_ID = "";
 	private final String CLIENT_SECRET = "";
 
-	private final String NaverUrl_getMovies = "https://openapi.naver.com/v1/search/movie.json?query={keyword}";
+	private final String NaverUrl_getMovies = "https://openapi.naver.com/v1/search/movie.json?query={title}";
 
-	public MovieDTO requestMovie(String keyword) {
+	public MovieDTO requestMovie(String title) {
 		final HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Naver-Client-Id", CLIENT_ID);
 		headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
 
 		final HttpEntity<String> entity = new HttpEntity<>(headers);
 
-		MovieDTO movieDTO = restTemplate.exchange(NaverUrl_getMovies, HttpMethod.GET, entity, MovieDTO.class, keyword)
+		MovieDTO movieDTO = restTemplate.exchange(NaverUrl_getMovies, HttpMethod.GET, entity, MovieDTO.class, title)
 				.getBody();
 
 		return movieDTO;
