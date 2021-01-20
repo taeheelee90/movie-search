@@ -14,6 +14,7 @@ public class MovieApiClient {
 
 	private final RestTemplate restTemplate;
 
+
 	// Insert your own CLIENT_ID and CLIENT_SECRET
 	private final String CLIENT_ID = "";
 	private final String CLIENT_SECRET = "";
@@ -24,9 +25,13 @@ public class MovieApiClient {
 		final HttpHeaders headers = new HttpHeaders();
 		headers.set("X-Naver-Client-Id", CLIENT_ID);
 		headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
-	
+
 		final HttpEntity<String> entity = new HttpEntity<>(headers);
-		
-		return restTemplate.exchange(NaverUrl_getMovies, HttpMethod.GET, entity, MovieDTO.class, keyword).getBody();
+
+		MovieDTO movieDTO = restTemplate.exchange(NaverUrl_getMovies, HttpMethod.GET, entity, MovieDTO.class, keyword)
+				.getBody();
+
+		return movieDTO;
 	}
+
 }

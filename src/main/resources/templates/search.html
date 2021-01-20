@@ -6,14 +6,16 @@
 </head>
 <body>
 	<div>
-		<h1>Search Movie</h1>
+		<h1>Search Movie by Title</h1>
 		<small>Movie information will be searched from <a href="https://www.naver.com/" target="_blank">NAVER</a></small>
 		
 
 		<div>
+				<!-- th:action="@{/rest-movies}" -->
 			<form th:action="@{/movies}" method="get">			
-				<input type="text" class="form-control" name="keyword" placeholder="Enter keyword" ria-label="Search">
+				<input type="text" class="form-control" name="keyword" placeholder="Enter movie title" aria-label="Search">
 				<input type="submit" value="Search"/>
+			</form>
 		</div>
 	</div>	
 	

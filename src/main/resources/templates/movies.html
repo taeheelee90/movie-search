@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Movie Search</title>
+<style>
+table, td, th {
+	border: 1px solid black;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+</style>
+</head>
+<body>
+	<div>
+		<p>
+			Movie searched by <strong th:text="${keyword}"></strong>
+		</p>
+		<small>Movie information are searched from <a
+			href="https://www.naver.com/" target="_blank">NAVER</a></small>
+		<div>
+			<table>
+				<tr>
+					<th>Poster</th>
+					<th>Title (KOR)</th>
+					<th>Director(s)</th>
+					<th>Actor(s)</th>
+					<th>Year</th>
+					<th>Rate</th>
+					<th>More information</th>
+				</tr>
+
+				<tr th:each="movie: ${movies}">
+					<td><img th:src="${movie.image}" th:alt="${movie.title}"></td>
+					<td th:text="${movie.title}"></td>
+					<td th:text="${movie.director}"></td>
+					<td th:text="${movie.actor}"></td>
+					<td th:text="${movie.pubDate}"></td>
+					<td th:text="${movie.userRating}"></td>
+					<td><a th:href="${movie.link}" th:target="_blank">More information</a></td>
+				</tr>
+
+				</div>
+</body>
+</html>
