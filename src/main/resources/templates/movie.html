@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Movie Search</title>
+</head>
+<body>
+	<div class="col-md-12">
+		<h1>Search Movie</h1>
+		<small>Movie information will be searched from <a
+			href="https://www.naver.com/">NAVER</a>.
+		</small>
+		
+<!--source:
+	https://leveloper.tistory.com/24
+-->		
+		<div class="col-md-4">
+			<form>
+				<div class="form-group">
+					<input type="text" class="form-control" id="keyword"
+						placeholder="Enter keyword">
+					<button type="button" class="btn btn-primary" id="btn-movies-find">Search</button>
+				</div>
+		</div>
+	</div>
+	
+	<script>
+		var main = {
+			init : function() {
+				var _this = this;
+				$('#btn-movies-find').on('click', function() {
+					_this.find();
+				});
+			},
+			find : function() {
+				var keyword = $('#keyword').val();
+				$.ajax({
+					type : 'GET',
+					url : '/api/v1/movies/' + keyword,
+					dataType : 'json',
+					contentType : 'application/json; charset=utf-8',
+				}).done(function(res) {
+					alert(JSON.stringify(res));
+				}).fail(function(error) {
+					alert(JSON.stringify(error));
+				});
+			}
+		};
+		main.init();
+	</script>
+	
+	<footer>Taehee Lee, 2021</footer>
+</body>
+</html>
