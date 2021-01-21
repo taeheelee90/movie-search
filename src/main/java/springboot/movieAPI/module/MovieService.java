@@ -1,5 +1,6 @@
 package springboot.movieAPI.module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -11,26 +12,25 @@ import springboot.movieAPI.module.MovieDTO.Item;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MovieService {
 
 	private final MovieApiClient movieApiClient;
 	private final ModelMapper modelMapper;
-	private final MovieRepository movieRepository;
 
 	public MovieDTO searchMovie(String title) {
 		return movieApiClient.requestMovie(title);
 	}
 
-	@Transactional
 	public List<Movie> renderMovieDTO(MovieDTO movieDTO, String title) {
 		Item[] items = movieDTO.getItems();
+		List<Movie> movies = new ArrayList<>();
 
 		for (Item item : items) {
 			Movie movie = modelMapper.map(item, Movie.class);
-			movieRepository.save(movie);
+			movies.add(movie);
 		}
-		System.out.println(movieRepository.findAll());
-		return movieRepository.findAll();
+		return movies;
 	}
 
 }

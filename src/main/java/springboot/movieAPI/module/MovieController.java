@@ -28,10 +28,7 @@ public class MovieController {
 
 	@GetMapping("/movies")
 	public String showMovies(@RequestParam String title, Model model) {
-		
-		/*Currently render method returns all movies from Repo,
-		ToDo: Return movies with title only!
-		*/
+	
 		MovieDTO movieDTO = movieService.searchMovie(title);
 		List<Movie> movies = movieService.renderMovieDTO(movieDTO, title);
 
